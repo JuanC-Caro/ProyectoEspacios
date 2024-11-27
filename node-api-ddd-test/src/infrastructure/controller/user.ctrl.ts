@@ -11,18 +11,25 @@ export class UserController {
   public getUser = async ({ query }: Request, res: Response) => {
     const { uuid = '' } = query;
     const user = await this.userUseCase.getDetailUSer(`${uuid}`);
-    res.send({ user });
+    res.status(200).send({ user });
   }
   
 
   public registerUser = async ({ body }: Request, res: Response) => {
+
+    const user = await this.userUseCase.getUserByEmail(body.email);
+
+    if (user) {
+      res.status(404).send({ message: 'User already exists' });
+      return;
+    }
  
     const passHash = await encrypt(body.password);
     body.password = passHash;
 
-    const user = await this.userUseCase.registerUser(body);
+    const newUser = await this.userUseCase.registerUser(body);
 
-    res.send({ user });
+    res.status(201).send({ newUser });
   }
 
   public loginUser = async ({ body }: Request, res: Response) => {
@@ -45,6 +52,6 @@ export class UserController {
     const { uuid, name, role } = user;
     const token = generateToken({ uuid, name, email, role });
 
-    res.send({ token, user });
+    res.status(200).send({ token, user });
   }
 }
