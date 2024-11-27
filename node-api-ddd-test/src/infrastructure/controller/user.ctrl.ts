@@ -42,8 +42,8 @@ export class UserController {
       return;
     }
 
-    const { uuid, name, rol } = user;
-    const token = generateToken({ uuid, name, email, rol });
+    const { uuid, name, role } = user;
+    const token = generateToken({ uuid, name, email, role });
 
     res.send({ token, user });
   }
