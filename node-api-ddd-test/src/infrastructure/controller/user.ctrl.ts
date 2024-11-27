@@ -16,7 +16,7 @@ export class UserController {
   
 
   public registerUser = async ({ body }: Request, res: Response) => {
-
+ 
     const passHash = await encrypt(body.password);
     body.password = passHash;
 
