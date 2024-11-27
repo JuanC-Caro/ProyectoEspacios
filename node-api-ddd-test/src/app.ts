@@ -1,8 +1,8 @@
 import "dotenv/config";
 import express from "express";
 import cors from "express";
-import userRoute from "./route/user.route";
-import dbInit from "./db/mongo";
+import userRoute from "./infrastructure/route/user.route";
+import dbInit from "./infrastructure/db/mongo";
 
 const app = express();
 app.use(cors());
@@ -12,4 +12,4 @@ const port = process.env.PORT || 3001;
 
 app.use(userRoute);
 dbInit().then();
-app.listen(port, () => console.log(`Listo por el puerto ${port}`));
+app.listen(port, () => console.log(`Servidor, listo por el puerto ${port}`));
