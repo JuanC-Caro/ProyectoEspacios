@@ -48,10 +48,9 @@ export class UserController {
       res.status(401).send({ message: 'Invalid password' });
       return;
     }
-
-    const { uuid, name, role } = user;
+    const { uuid, name, role } = user; 
     const token = generateToken({ uuid, name, email, role });
 
-    res.status(200).send({ token, user });
+    res.status(200).send({ token, user: { uuid, name, email, role } });
   }
 }
