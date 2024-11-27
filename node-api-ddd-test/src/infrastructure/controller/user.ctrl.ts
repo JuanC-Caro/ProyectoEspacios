@@ -23,7 +23,7 @@ export class UserController {
       res.status(404).send({ message: 'User already exists' });
       return;
     }
-
+ 
     const passHash = await encrypt(body.password);
     body.password = passHash;
 

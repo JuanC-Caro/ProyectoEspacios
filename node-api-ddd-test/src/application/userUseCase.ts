@@ -4,9 +4,10 @@ import { UserValue } from "../domain/user.value";
 export class UserUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
-  public registerUser = async ({ name, email, password, rol }) => {
-    const userValue = new UserValue({ name, email, password, rol });
+  public registerUser = async ({ name, email, password, role }) => {
+    const userValue = new UserValue({ name, email, password, role });
     const userCreated = await this.userRepository.registerUser(userValue);
+    delete userCreated.password
     return userCreated
   }
 
