@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { UserUseCase } from "../../application/userUseCase";
 import { UserController } from "../controller/user.ctrl";
-import { MockRepository } from "../repository/mock.repository";
 import { MongoRepository } from "../repository/mongo.repository";
 
 const route = Router()
