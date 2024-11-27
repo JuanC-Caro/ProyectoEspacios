@@ -28,5 +28,14 @@ export class MongoRepository implements UserRepository {
         const user = await UserModel.find()
         return user
     }
+    async updateUser(user: UserEntity): Promise<any> {
+        const updateData = { ...user };
+        if (!user.password) {
+            delete updateData.password;
+        }
+        const userUpdated = await UserModel
+            .findOneAndUpdate({ uuid: user.uuid }, updateData, { new: true });
+        return userUpdated;
+    }
     
 }

@@ -54,4 +54,37 @@ export class UserController {
 
     res.status(200).send({ token, user });
   }
+
+  public updateUser = async ({ body }: Request, res: Response) => {
+    
+    const userCurrent = await this.userUseCase.getDetailUSer(body.uuid);
+    console.log(userCurrent)
+
+    const isPasswordValid = await verified(body.currentPassword, userCurrent.password);
+
+    if (!isPasswordValid) {
+      res.status(401).send({ message: 'Invalid password' });
+      return;
+    }
+
+    if(body.password){
+      const passHash = await encrypt(body.password);
+      body.password = passHash;
+    }
+
+    console.log(body)
+    
+    const user = await this.userUseCase.updateUser(body);
+
+    if (!user) {
+      res.status(404).send({ message: 'User not found' });
+      return;
+    }
+
+    const { uuid, name, email, role } = user;
+    const token = generateToken({ uuid, name, email, role });
+
+    res.status(200).send({ user, token });
+  }
+  
 }

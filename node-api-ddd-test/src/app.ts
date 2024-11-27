@@ -27,4 +27,8 @@ const port = process.env.PORT || 3001;
 app.use(userRoute);
 dbInit().then();
 
+app.get("/", (req, res) => {
+    res.send("Api funcionando");
+});
+
 app.listen(port, () => console.log(`Servidor, listo por el puerto ${port}`));

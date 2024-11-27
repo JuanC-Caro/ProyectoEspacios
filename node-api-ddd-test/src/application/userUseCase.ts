@@ -20,4 +20,11 @@ export class UserUseCase {
     const user = await this.userRepository.findUserByEmail(email)
     return user
   }
+
+  public updateUser = async ({ uuid, name, email, password, role }) => {
+    const userValue = new UserValue({ name, email, password, role });
+    userValue.setUuid(uuid)
+    const user = await this.userRepository.updateUser(userValue)
+    return user
+  }
 }

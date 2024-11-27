@@ -15,4 +15,9 @@ export class UserValue implements UserEntity {
     this.password = password;
     this.role = role;
   }
+
+  public setUuid(uuid: string) {
+    this.uuid = uuid;
+  }
+  
 }
