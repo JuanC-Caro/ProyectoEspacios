@@ -2,7 +2,7 @@ import { ReservationEntity } from "../../domain/reservation.entity";
 import { ReservationRepository } from "../../domain/reservation.repository";
 import ReservationModel from "../model/reservation.shchema";  // Importa el modelo de reserva
 
-//Mongo Repository for Reservationy
+//Mongo Repository for Reservation
 
 export class MongoReservationRepository implements ReservationRepository {
 
