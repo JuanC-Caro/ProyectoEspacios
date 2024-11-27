@@ -4,17 +4,20 @@ const UserSchema = new Schema(
   {
     name: {
       type: String,
+      required: true,
     },
     email: {
       type: String,
       unique: true,
+      required: true,
     },
     uuid: {
       type: String,
       unique: true,
     },
-    description: {
+    password: {
       type: String,
+      required: true,
     },
   },
   {

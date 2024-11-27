@@ -8,6 +8,14 @@ import UserModel from "../model/user.shchema"
  * Mongo! 
  */
 export class MongoRepository implements UserRepository {
+
+    async findUserByEmail(email: string): Promise<any> {
+        const user = await UserModel.findOne({ email });
+        if (!user.password) {
+            return null;
+        }
+        return user;
+    }
     async findUserById(uuid: string): Promise<any> {
         const user = await UserModel.findOne({uuid})
         return user
