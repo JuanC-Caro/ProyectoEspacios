@@ -1,13 +1,13 @@
 import { Router } from "express";
 import { ReservationUseCase } from "../../application/reservationUseCase";
 import { ReservationController } from "../controller/reservation.ctrl";
-import { ReservationRepository } from "../repository/reservation.repository";
+import { MongoReservationRepository } from "../repository/reservation.repository";
 
 import { authMiddleware } from "../middleware/session";
 
 const route = Router();
 
-const reservationRepo = new ReservationRepository();
+const reservationRepo = new MongoReservationRepository();
 const reservationUseCase = new ReservationUseCase(reservationRepo);
 const reservationCtrl = new ReservationController(reservationUseCase);
 
