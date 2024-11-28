@@ -2,11 +2,15 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import userRoute from "./infrastructure/route/user.route";
+import reservationRoute from "./infrastructure/route/reservation.route";
+import spaceRoute from "./infrastructure/route/space.route";
+
 import dbInit from "./infrastructure/db/mongo";
+
 console.clear();
 const app = express();
 app.use(express.json());
-//cors
+
 const allowedOrigins = ['http://localhost:5173/','http://localhost:5173',"*"];
 app.use(cors({
     origin: function (origin, callback) {
@@ -25,6 +29,9 @@ app.use(cors({
 const port = process.env.PORT || 3001;
 
 app.use(userRoute);
+app.use(reservationRoute);
+app.use(spaceRoute);
+
 dbInit().then();
 
 app.get("/", (req, res) => {

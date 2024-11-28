@@ -4,10 +4,21 @@
 import { UserEntity } from "../../domain/user.entity";
 import { UserRepository } from "../../domain/user.repository";
 import UserModel from "../model/user.shchema"
+
+import { ReservationEntity } from "../../domain/reservation.entity";
+import { ReservationRepository } from "../../domain/reservation.repository";
+import ReservationModel from "../model/reservation.shchema";
+
+import { SpaceEntity } from "../../domain/space.entity";
+import { SpaceRepository } from "../../domain/space.repository";
+import SpaceModel from "../model/space.shchema";
+
 /**
  * Mongo! 
  */
-export class MongoRepository implements UserRepository {
+export class MongoRepository implements UserRepository, ReservationRepository, SpaceRepository {
+    
+    // ----------------- Users -----------------
 
     async findUserByEmail(email: string): Promise<any> {
         const user = await UserModel.findOne({ email });
@@ -16,8 +27,8 @@ export class MongoRepository implements UserRepository {
         }
         return user;
     }
-    async findUserById(uuid: string): Promise<any> {
-        const user = await UserModel.findOne({uuid})
+    async findUserById(id: string): Promise<any> {
+        const user = await UserModel.findOne({id})
         return user
     }
     async registerUser(userIn: UserEntity): Promise<any> {
@@ -34,8 +45,69 @@ export class MongoRepository implements UserRepository {
             delete updateData.password;
         }
         const userUpdated = await UserModel
-            .findOneAndUpdate({ uuid: user.uuid }, updateData, { new: true });
+            .findOneAndUpdate({ uuid: user.id }, updateData, { new: true });
         return userUpdated;
+    }
+
+    // ----------------- Reservations -----------------
+
+    async findReservationById(uuid: string): Promise<any> {
+        const reservation = await ReservationModel.findOne({ uuid });
+        return reservation;
+    }
+
+    async findReservationsByUserId(userId: string): Promise<any> {
+        const reservations = await ReservationModel.find({ userId });
+        return reservations;
+    }
+
+    async findReservationsBySpaceId(spaceId: string): Promise<any> {
+        const reservations = await ReservationModel.find({ spaceId });
+        return reservations;
+    }
+
+    async createReservation(reservationIn: ReservationEntity): Promise<any> {
+        const reservation = await ReservationModel.create(reservationIn);
+        return reservation;
+    }
+
+    async updateReservation(uuid: string, reservationIn: ReservationEntity): Promise<any> {
+        const reservation = await ReservationModel.findOneAndUpdate(
+            { uuid },
+            reservationIn,
+            { new: true } 
+        );
+        return reservation;
+    }
+
+    async deleteReservation(uuid: string): Promise<boolean> {
+        const result = await ReservationModel.deleteOne({ uuid });
+        return result.deletedCount > 0;
+    }
+
+    // ----------------- Spaces -----------------
+
+    async findSpaceById(uuid: string): Promise<any> {
+        const space = await SpaceModel.findOne({ uuid });
+        return space;
+    }
+
+    async createSpace(spaceIn: SpaceEntity): Promise<any> {
+        const space = await SpaceModel.create(spaceIn);
+        return space;
+    }
+
+    async updateSpace(uuid: string): Promise<any> {
+        const space = await SpaceModel.findOneAndUpdate(
+            { uuid },
+            { new: true }
+        );
+        return space;
+    }
+
+    async deleteSpace(uuid: string): Promise<boolean> {
+        const result = await SpaceModel.deleteOne({ uuid });
+        return result.deletedCount > 0;
     }
     
 }

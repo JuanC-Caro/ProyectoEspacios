@@ -9,8 +9,8 @@ export class UserController {
   }
 
   public getUser = async ({ query }: Request, res: Response) => {
-    const { uuid = '' } = query;
-    const user = await this.userUseCase.getDetailUSer(`${uuid}`);
+    const { id = '' } = query;
+    const user = await this.userUseCase.getDetailUSer(`${id}`);
     res.status(200).send({ user });
   }
   
@@ -48,15 +48,15 @@ export class UserController {
       res.status(401).send({ message: 'Invalid password' });
       return;
     }
-    const { uuid, name, role } = user; 
-    const token = generateToken({ uuid, name, email, role });
+    const { id, name, role } = user; 
+    const token = generateToken({ id, name, email, role });
 
-    res.status(200).send({ token, user: { uuid, name, email, role } });
+    res.status(200).send({ token, user: { id, name, email, role } });
   }
 
   public updateUser = async ({ body }: Request, res: Response) => {
     
-    const userCurrent = await this.userUseCase.getDetailUSer(body.uuid);
+    const userCurrent = await this.userUseCase.getDetailUSer(body.id);
     console.log(userCurrent)
 
     const isPasswordValid = await verified(body.currentPassword, userCurrent.password);
@@ -80,8 +80,8 @@ export class UserController {
       return;
     }
 
-    const { uuid, name, email, role } = user;
-    const token = generateToken({ uuid, name, email, role });
+    const { id, name, email, role } = user;
+    const token = generateToken({ id, name, email, role });
 
     res.status(200).send({ user, token });
   }

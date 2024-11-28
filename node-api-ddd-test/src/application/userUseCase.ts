@@ -11,8 +11,8 @@ export class UserUseCase {
     return userCreated
   }
 
-  public getDetailUSer = async (uuid:string) => {
-    const user = await this.userRepository.findUserById(uuid)
+  public getDetailUSer = async (id:string) => {
+    const user = await this.userRepository.findUserById(id)
     return user
   }
 
@@ -21,9 +21,9 @@ export class UserUseCase {
     return user
   }
 
-  public updateUser = async ({ uuid, name, email, password, role }) => {
+  public updateUser = async ({ id, name, email, password, role }) => {
     const userValue = new UserValue({ name, email, password, role });
-    userValue.setUuid(uuid)
+    userValue.setId(id)
     const user = await this.userRepository.updateUser(userValue)
     return user
   }

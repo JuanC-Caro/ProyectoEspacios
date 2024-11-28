@@ -11,7 +11,7 @@ const UserSchema = new Schema(
       unique: true,
       required: true,
     },
-    uuid: {
+    id: {
       type: String,
       unique: true,
     },
