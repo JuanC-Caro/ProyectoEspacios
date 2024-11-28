@@ -30,8 +30,8 @@ export class ReservationUseCase {
   }
 
   // detalles de una reserva por ID
-  public getReservationDetail = async (uuid: string) => {
-    const reservation = await this.reservationRepository.findReservationById(uuid);
+  public getReservationDetail = async (id: string) => {
+    const reservation = await this.reservationRepository.findReservationById(id);
     return reservation;
   }
 

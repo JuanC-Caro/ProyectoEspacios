@@ -22,7 +22,8 @@ export class MongoRepository implements UserRepository, ReservationRepository, S
 
     async findUserByEmail(email: string): Promise<any> {
         const user = await UserModel.findOne({ email });
-        if (!user.password) {
+        
+        if (user == null || !user.password) {
             return null;
         }
         return user;
@@ -45,14 +46,14 @@ export class MongoRepository implements UserRepository, ReservationRepository, S
             delete updateData.password;
         }
         const userUpdated = await UserModel
-            .findOneAndUpdate({ uuid: user.id }, updateData, { new: true });
+            .findOneAndUpdate({ id: user.id }, updateData, { new: true });
         return userUpdated;
     }
 
-    // ----------------- Reservations -----------------
+    // ----------------- Reservations -------------------------
 
-    async findReservationById(uuid: string): Promise<any> {
-        const reservation = await ReservationModel.findOne({ uuid });
+    async findReservationById(id: string): Promise<any> {
+        const reservation = await ReservationModel.find({ id });
         return reservation;
     }
 
@@ -71,18 +72,13 @@ export class MongoRepository implements UserRepository, ReservationRepository, S
         return reservation;
     }
 
-    async updateReservation(uuid: string, reservationIn: ReservationEntity): Promise<any> {
+    async updateReservation(id: string, reservationIn: ReservationEntity): Promise<any> {
         const reservation = await ReservationModel.findOneAndUpdate(
-            { uuid },
+            { id },
             reservationIn,
             { new: true } 
         );
         return reservation;
-    }
-
-    async deleteReservation(uuid: string): Promise<boolean> {
-        const result = await ReservationModel.deleteOne({ uuid });
-        return result.deletedCount > 0;
     }
 
     // ----------------- Spaces -----------------

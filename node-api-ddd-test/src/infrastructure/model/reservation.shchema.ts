@@ -2,6 +2,10 @@ import { Schema, model } from "mongoose";
 
 const ReservationSchema = new Schema(
   {
+    id: {
+      type: String,
+      unique: true,
+    },
     spaceId: {
       type: String,
       required: true,
