@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 const SpaceSchema = new Schema(
   {
-    spaceId: {
+    id: {
       type: String,
       required: true,
     },

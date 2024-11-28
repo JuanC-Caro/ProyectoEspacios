@@ -2,14 +2,14 @@ import { v4 as uuid } from "uuid";
 import { SpaceEntity } from "./space.entity";
 
 export class SpaceValue implements SpaceEntity {
-   spaceId: string;
+   id: string;
    name: string;
    type: string;
    location:string;
 
-   constructor({spaceId, name, type, location}) 
+   constructor({ name, type, location}) 
    {
-      this.spaceId = spaceId;
+      this.id =  uuid();
       this.name = name;
       this.type = type;
       this.location = location;

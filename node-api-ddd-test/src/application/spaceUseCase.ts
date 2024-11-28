@@ -6,13 +6,11 @@ export class  SpaceUseCase {
 
   // se crear un nuevo espacio
   public registerSpace = async ({
-    spaceId,
     name,
     type,
     location
   }) => {
     const spaceValue = new SpaceValue({
-      spaceId,
       name,
       type,
       location
