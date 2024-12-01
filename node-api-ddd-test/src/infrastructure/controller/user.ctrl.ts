@@ -13,6 +13,11 @@ export class UserController {
     const user = await this.userUseCase.getDetailUSer(`${id}`);
     res.status(200).send({ user });
   }
+
+  public getAllUsers = async (req: Request, res: Response) => {
+    const users = await this.userUseCase.getAllUsers();
+    res.status(200).send({ users });
+  }
   
 
   public registerUser = async ({ body }: Request, res: Response) => {

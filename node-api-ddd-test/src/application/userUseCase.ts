@@ -27,4 +27,9 @@ export class UserUseCase {
     const user = await this.userRepository.updateUser(userValue)
     return user
   }
+
+  public getAllUsers = async () => {  
+    const users = await this.userRepository.findAllUsers();
+    return users
+  }
 }

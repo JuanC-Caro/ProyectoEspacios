@@ -66,4 +66,10 @@ export class ReservationUseCase {
     const reservationUpdated = await this.reservationRepository.updateReservation(id, reservationValue);
     return reservationUpdated;
   }
+
+  public getAllReservations = async () => {
+    const reservations = await this.reservationRepository.findAllReservations();
+    return reservations;
+  }
+  
 }

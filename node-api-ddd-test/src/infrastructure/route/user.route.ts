@@ -14,6 +14,7 @@ const userCtrl = new UserController(userUseCase)
 
 route.post(`/user`, userCtrl.registerUser)
 route.get(`/user`, authMiddleware, userCtrl.getUser)
+route.get(`/users`, userCtrl.getAllUsers)
 route.post(`/login`, userCtrl.loginUser)
 route.put(`/user`, userCtrl.updateUser)
 

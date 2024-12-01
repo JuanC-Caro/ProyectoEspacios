@@ -8,12 +8,15 @@ export class ReservationController {
   public getReservation = async ({ query }: Request, res: Response) => {
     const { id = '' } = query;
     const reservation = await this.reservationUseCase.getReservationDetail(`${id}`);
-    res.send({ reservation });
+    res.send({ reservation }); 
   }
 
+  public getAllReservations = async (req: Request, res: Response) => {
+    const reservations = await this.reservationUseCase.getAllReservations();
+    res.send({ reservations });
+  }
   
   public registerReservation = async ({ body }: Request, res: Response) => {
-    console.log(body, "body");
     const reservation = await this.reservationUseCase.registerReservation(body);
     res.send({ reservation });
   }

@@ -15,6 +15,7 @@ const reservationCtrl = new ReservationController(reservationUseCase);
 route.post(`/reservation`, reservationCtrl.registerReservation);
 route.get(`/reservation`, reservationCtrl.getReservation);
 route.get(`/reservations`, reservationCtrl.getReservationsByUserId);
+route.get(`/all-reservations`, reservationCtrl.getAllReservations);
 route.put(`/reservation`, reservationCtrl.updateReservation);
 
 export default route;

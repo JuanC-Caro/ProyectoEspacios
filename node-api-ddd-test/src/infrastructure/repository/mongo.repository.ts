@@ -32,12 +32,12 @@ export class MongoRepository implements UserRepository, ReservationRepository, S
         const user = await UserModel.findOne({id})
         return user
     }
+    async findAllUsers(): Promise<any> {
+        const users = await UserModel.find();
+        return users;
+    }
     async registerUser(userIn: UserEntity): Promise<any> {
         const user = await UserModel.create(userIn)
-        return user
-    }
-    async listUser(): Promise<any> {
-        const user = await UserModel.find()
         return user
     }
     async updateUser(user: UserEntity): Promise<any> {
@@ -60,6 +60,11 @@ export class MongoRepository implements UserRepository, ReservationRepository, S
     async findReservationsByUserId(userId: string): Promise<any> {
         const reservations = await ReservationModel.find({ userId });
         return reservations;
+    }
+
+    async findAllReservations(): Promise<any> {
+        const reservations = await ReservationModel.find();
+        return reservations
     }
 
     async findReservationsBySpaceId(spaceId: string): Promise<any> {
