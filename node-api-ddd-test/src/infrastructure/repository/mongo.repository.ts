@@ -78,9 +78,12 @@ export class MongoRepository implements UserRepository, ReservationRepository, S
     }
 
     async updateReservation(id: string, reservationIn: ReservationEntity): Promise<any> {
+        const {id:_id,...newData} = reservationIn; 
         const reservation = await ReservationModel.findOneAndUpdate(
             { id },
-            reservationIn,
+            {
+                ...newData
+            },
             { new: true } 
         );
         return reservation;
