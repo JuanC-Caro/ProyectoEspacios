@@ -13,14 +13,20 @@ export class ReservationController {
 
   
   public registerReservation = async ({ body }: Request, res: Response) => {
+    console.log(body, "body");
     const reservation = await this.reservationUseCase.registerReservation(body);
     res.send({ reservation });
   }
-
   
   public getReservationsByUserId = async ({ query }: Request, res: Response) => {
     const { userId } = query;
     const reservations = await this.reservationUseCase.getReservationsByUserId(`${userId}`);
     res.send({ reservations });
   }
+
+  public updateReservation = async ({ body }: Request, res: Response) => {
+    const reservation = await this.reservationUseCase.updateReservation(body);
+    res.send({ reservation });
+  }
+
 }

@@ -12,8 +12,9 @@ const reservationUseCase = new ReservationUseCase(reservationRepo);
 const reservationCtrl = new ReservationController(reservationUseCase);
 
 
-route.post(`/reservation`, authMiddleware, reservationCtrl.registerReservation);
-route.get(`/reservation`, authMiddleware, reservationCtrl.getReservation);
-route.get(`/reservations`, authMiddleware, reservationCtrl.getReservationsByUserId);
+route.post(`/reservation`, reservationCtrl.registerReservation);
+route.get(`/reservation`, reservationCtrl.getReservation);
+route.get(`/reservations`, reservationCtrl.getReservationsByUserId);
+route.put(`/reservation`, reservationCtrl.updateReservation);
 
 export default route;

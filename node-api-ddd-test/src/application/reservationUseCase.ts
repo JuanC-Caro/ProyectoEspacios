@@ -40,4 +40,30 @@ export class ReservationUseCase {
     const reservations = await this.reservationRepository.findReservationsByUserId(userId);
     return reservations;
   }
+
+  // actualizar una reserva
+  public updateReservation = async ({
+    id,
+    spaceId,
+    userId,
+    reservationDate,
+    startTime,
+    endTime,
+    reservationReason,
+    status,
+    reservationType,
+  }) => {
+    const reservationValue = new ReservationValue({
+      spaceId,
+      userId,
+      reservationDate,
+      startTime,
+      endTime,
+      reservationReason,
+      status,
+      reservationType,
+    });
+    const reservationUpdated = await this.reservationRepository.updateReservation(id, reservationValue);
+    return reservationUpdated;
+  }
 }

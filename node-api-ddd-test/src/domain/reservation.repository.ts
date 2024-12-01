@@ -6,5 +6,6 @@ export interface ReservationRepository {
   findReservationsBySpaceId(spaceId: string): Promise<ReservationEntity[] | null>;
   createReservation(reservation: ReservationEntity): Promise<ReservationEntity | null>;
   updateReservation(id: string, reservation: ReservationEntity): Promise<ReservationEntity | null>;
+  findAllReservations(): Promise<ReservationEntity[] | null>;
 }
 
